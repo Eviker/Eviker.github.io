@@ -1,16 +1,346 @@
 <!DOCTYPE html>
+
 <html>
-  <body>
-    <p>
-      Bahumbug
-    </p>
-    <button onclick="hello()">
-    Click
-    </button>
-    <script>
-      function hello(){
-        alert("your mom");
-      }
-    </script>
-  </body>
+<style>
+
+.Boxes {
+    width: 30px;
+    height: 30px;
+    border: solid;
+    line-height: 30px;
+    position: absolute;
+    text-align: center;
+    background-color: lightgrey;  
+    border-width: 1px;
+}
+
+
+</style>
+
+
+<body>
+
+<button onclick="NewGame()">
+New Game
+</button>
+
+<script>
+
+
+document.addEventListener('contextmenu', event => event.preventDefault());
+
+Width = 20;
+Height = 10;
+BombNumber = 50;
+Grid = [];
+
+NewGame();
+
+function NewGame(){
+	GameOver = false;
+
+
+    //Sets up Grid
+    for(var i = 0; i < Width; i++){
+        Grid[i] = [];
+        for(var j = 0; j < Height; j++){
+            Grid[i][j] = 0;
+        }
+    }
+
+    //Sets up the bombs
+    for(var i = 0; i < BombNumber; i++){
+        do {
+        ranX = Math.floor(Math.random() * Width);
+        ranY = Math.floor(Math.random() * Height);
+        } while (Grid[ranX][ranY] != 0);
+
+        Grid[ranX][ranY] = "💣";   
+    }
+
+    //adds numbers to the grid
+    for( var i = 0; i < Width; i++){
+        for( var j = 0; j < Height; j++){
+            if(Grid[i][j] == "💣"){
+                for(var k = -1; k < 2; k++){
+                    for(var l = -1; l < 2; l++){
+                        try { 
+                            if( Grid[i+k][j+l] != "💣"){
+                                Grid[i+k][j+l]++;
+                            }
+                        } catch(err){}
+                    }
+                }
+            }
+        }
+    }
+    
+    Boxes = [];
+    for( i = 0; i < Height; i++){
+        for( j = 0; j < Width; j++){
+            box = document.createElement("p");
+            box.className = "Boxes";
+            box.id = i*Width+j;
+            box.pos = { y: i, x: j}
+            box.style.top = 30*i+30 + "px";
+            box.style.left = 30*j+30 + "px";
+            box.onclick =  OpenTile;
+            box.oncontextmenu = FlagTile;
+            Boxes.push(box);
+            document.body.appendChild(box);
+        }
+    }
+
+
+}
+
+//Function for opening a ile
+function OpenTile(){
+    if(Boxes[this.id].innerHTML != "🚩" &&  !GameOver){
+		Boxes[this.id].style.backgroundColor = "white";
+    	Boxes[this.id].innerHTML = Grid[this.pos.x][this.pos.y];
+    	if(Boxes[this.id].innerHTML == "💣"){
+        	GameOver = true;
+        }
+    }
+   
+    if(Boxes[this.id].innerHTML == 0){
+    //	OpenZeroes(this.id);
+       
+    }
+  
+}
+
+//Function for flagging a tile
+function FlagTile(){
+   if(Boxes[this.id].style.backgroundColor != "white" && !GameOver){
+       if( Boxes[this.id].innerHTML != "🚩"){
+           Boxes[this.id].innerHTML = "🚩";
+       } else {
+           Boxes[this.id].innerHTML = "";
+       }
+   }
+   DidWin();
+}
+
+//Function that checks if you have won
+function DidWin(){
+    var num = 0;
+	for(var i = 0; i < Boxes.length; i++){
+    	if(Grid[Math.floor(i/Width)][i%Height] == "💣"){
+        	if(Boxes[i].innerHTML == "🚩"){
+            	num++;
+            }
+        }
+    }
+    if(num == BombNumber){
+    	alert("Thou hast won");
+    }
+}
+
+
+
+function OpenZeroes(a){
+   
+   
+   a = parseInt(a,10);
+      for( var i = -1; i < 2; i++){
+    	for( var j = -1; j < 2; j++){
+         try { 
+          Boxes[a + i + Width * j ].style.backgroundColor = "white" ;
+        
+         } catch(err){}
+ 
+    }
+  }
+  
+ 
+  
+    
+    
+   // Boxes[a + 1].style.backgroundColor = "white";
+}
+
+
+
+</script>
+
+
+</body>
 </html>
+      
+
+
+
+<html>
+<style>
+
+.Boxes {
+    width: 30px;
+    height: 30px;
+    border: solid;
+    line-height: 30px;
+    position: absolute;
+    text-align: center;
+    background-color: lightgrey;  
+    border-width: 1px;
+}
+
+
+</style>
+
+
+<body>
+
+<button onclick="NewGame()">
+New Game
+</button>
+
+<script>
+
+
+document.addEventListener('contextmenu', event => event.preventDefault());
+
+Width = 20;
+Height = 10;
+BombNumber = 25;
+Grid = [];
+
+NewGame();
+
+function NewGame(){
+	GameOver = false;
+
+
+    //Sets up Grid
+    for(var i = 0; i < Width; i++){
+        Grid[i] = [];
+        for(var j = 0; j < Height; j++){
+            Grid[i][j] = 0;
+        }
+    }
+
+    //Sets up the bombs
+    for(var i = 0; i < BombNumber; i++){
+        do {
+        ranX = Math.floor(Math.random() * Width);
+        ranY = Math.floor(Math.random() * Height);
+        } while (Grid[ranX][ranY] != 0);
+
+        Grid[ranX][ranY] = "💣";   
+    }
+
+    //adds numbers to the grid
+    for( var i = 0; i < Width; i++){
+        for( var j = 0; j < Height; j++){
+            if(Grid[i][j] == "💣"){
+                for(var k = -1; k < 2; k++){
+                    for(var l = -1; l < 2; l++){
+                        try { 
+                            if( Grid[i+k][j+l] != "💣"){
+                                Grid[i+k][j+l]++;
+                            }
+                        } catch(err){}
+                    }
+                }
+            }
+        }
+    }
+    
+    Boxes = [];
+    for( i = 0; i < Height; i++){
+        for( j = 0; j < Width; j++){
+            box = document.createElement("p");
+            box.className = "Boxes";
+            box.id = i*Width+j;
+            box.pos = { y: i, x: j}
+            box.style.top = 30*i+30 + "px";
+            box.style.left = 30*j+30 + "px";
+            box.onclick =  OpenTile;
+            box.oncontextmenu = FlagTile;
+            Boxes.push(box);
+            document.body.appendChild(box);
+        }
+    }
+
+
+}
+
+//Function for opening a ile
+function OpenTile(){
+    if(this.innerHTML != "🚩" &&  !GameOver){
+		this.style.backgroundColor = "white";
+        if(Grid[this.pos.x][this.pos.y] != 0){
+        	this.innerHTML = Grid[this.pos.x][this.pos.y];
+        } else {
+           OpenZeroes(this); 
+        }
+    	if(this.innerHTML == "💣"){
+        	GameOver = true;
+        } 
+   
+    }   
+}
+
+//Function for flagging a tile
+function FlagTile(){
+   if(this.style.backgroundColor != "white" && !GameOver){
+       if( this.innerHTML != "🚩"){
+           this.innerHTML = "🚩";
+       } else {
+           this.innerHTML = "";
+       }
+   }
+   DidWin(this);
+}
+
+//Function that checks if you have won
+function DidWin(a){
+    var num = 0;
+	for(var i = 0; i < Boxes.length; i++){
+    	if(Grid[a.pos.x][a.pos.y] == "💣"){
+        	if(Boxes[i].innerHTML == "🚩"){
+            	num++;
+            }
+        }
+    }
+    if(num == BombNumber){
+    	alert("Thou hast won");
+    }
+}
+
+
+
+function OpenZeroes(obj){
+   
+   a = parseInt(obj.id,10);
+       for( var i = -1; i < 2; i++){
+           for( var j = -1; j < 2; j++){
+               try { 
+               if(obj.pos.x+i >= 0 && obj.pos.i+i < Width &&
+               obj.pos.y+j >= 0 && obj.pos.y+j < Height ){
+                  Boxes[a + i + Width * j ].style.backgroundColor = "white" ;
+          	      Boxes[a + i + Width * j ].innerHTML = Grid[obj.pos.x+i][obj.pos.y+j];
+               }
+         } catch(err){}
+ 
+    }
+  }
+  
+ 
+  
+    
+    
+  
+}
+
+
+
+</script>
+
+
+</body>
+</html>
+      
+    
+    
