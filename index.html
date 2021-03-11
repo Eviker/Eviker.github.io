@@ -19,10 +19,10 @@
 			PosY+=YCof;
 			Obj.left = PosX+"px";
 			Obj.top = PosY + "px";
-			if(PosY >= 728 ){
+			if(PosY >= screen.width-40 && PosY >= 0 ){
 				YCof = -YCof;
 			}
-			if(PosX >= 1326){
+			if(PosX >= screen.height-40 && PosX >= 0){
 				XCof = -XCof;
 			}
 		}
