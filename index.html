@@ -7,10 +7,10 @@
 		PosY = 10;
 		Obj = document.getElementById("obj");
 	        Obj.style.position = "absolute";
-		for(i = 0; i < 10; i++){
+		setInterval( function(){
 			Obj.style.left = PosX*i+"px";
 			Obj.style.top = PosY*i + "px";
-		}
+		}, 1000);
 		</script>
 	</body>
 	
