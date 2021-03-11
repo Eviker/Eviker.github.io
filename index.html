@@ -1,14 +1,17 @@
 <!DOCTYPE html>
 <html>
 	<body>
-		<div id="obj">b</div>
+		<div id="obj">📀</div>
 		<script>
-		Pos = 0;
-		Obj = document.getElementById("obj");
-	        Obj.style.position = "absolute";
-		Obj.style.left = "0px";
-		Obj.style.top = "0px";
-		setInterval( Move, 100);
+		PosX = 0;
+		PosY = 0;
+		Obj = document.getElementById("obj").style;
+	        Obj.position = "absolute";
+		Obj.width = "40px";
+		Obj.height = "40px";
+		Obj.left = "0px";
+		Obj.top = "0px";
+		setInterval( Move, 25);
 		function Move(){
 			Pos+=1;
 			Obj.style.left = Pos+"px";
