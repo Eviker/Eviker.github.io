@@ -1,7 +1,18 @@
 <!DOCTYPE html>
 <html>
 	<body>
-		b
+		<div id="obj">b</div>
+		<script>
+		PosX = 10;
+		PosY = 10;
+		Obj = document.getElementById("obj");
+	        Obj.style.position = "absolute";
+		for(i = 0; i < 10; i++){
+			Obj.style.left = PosX*i+"px";
+			Obj.style.top = PosY*i + "px";
+		}
+		</script>
 	</body>
+	
 	
 </html>
