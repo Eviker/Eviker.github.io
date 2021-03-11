@@ -1,33 +1,42 @@
+
 <!DOCTYPE html>
 <html>
-	<body>
-		<div id="obj">📀</div>
-		<script>
-		PosX = 0;
-		PosY = 0;
-		XCof = 1;
-		YCof = 1;
-		Obj = document.getElementById("obj").style;
-	        Obj.position = "absolute";
-		Obj.width = "40px";
-		Obj.height = "40px";
-		Obj.left = "0px";
-		Obj.top = "0px";
-		setInterval( Move, 25);
-		function Move(){
-			PosX+=XCof;
-			PosY+=YCof;
-			Obj.left = PosX+"px";
-			Obj.top = PosY + "px";
-			if(PosY >= screen.width-40 || PosY <= 0 ){
-				YCof = -YCof;
-			}
-			if(PosX >= screen.height-40 || PosX <=  0){
-				XCof = -XCof;
-			}
-		}
-		</script>
-	</body>
-	
-	
+    <style>
+        div{
+            position:absolute;
+            left:2px;
+            top:2px;
+            font-size:50px;
+            width:59px;
+            height:59px;
+        }
+    </style>
+   
+    <body>
+       
+    <div id="obj">📀</div>
+   
+    <script>
+        PosX = 2,PosY = 2,XCof = 1,YCof = 1;
+        Obj = document.getElementById("obj").style;
+     
+        setInterval( Move, 10);
+     
+        function Move(){
+            PosX+= XCof;
+            PosY+= YCof;
+           
+            Obj.left = PosX+"px";
+            Obj.top = PosY + "px";
+           
+            if(PosY >= window.innerHeight-59 || PosY <= 0  ){
+                YCof = -YCof;
+            }
+           
+            if(PosX >= window.innerWidth-62 || PosX <= 0){
+                XCof = -XCof;
+            }
+        }
+        </script>
+    </body>
 </html>
